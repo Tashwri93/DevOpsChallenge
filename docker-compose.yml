@@ -1,0 +1,31 @@
+#version: '3.8'
+services:
+  db:
+    build: 
+      context: ./db
+    ports:
+      - "3306:3306"
+    volumes:
+      -  db_data:/var/lib/mysql
+     
+    environment:
+       MYSQL_ROOT_PASSWORD : Sudo123!
+       MYSQL_USER : Tashan
+       MYSQL_PASSWORD : Admin123!
+       MYSQL_DATABASE : MysqlDatabase
+  app:
+      build:
+        context: ./app
+      ports:
+      - "80:3000"
+      environment:
+       DB_HOST : db
+       DB_USER : Tashan
+       DB_PASSWORD : Admin123!
+       DB_NAME : MysqlDatabase
+      depends_on: 
+      - db
+volumes:
+     db_data:
+
+ 
